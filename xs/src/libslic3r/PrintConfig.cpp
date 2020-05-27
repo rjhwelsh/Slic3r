@@ -20,7 +20,7 @@ PrintConfigDef::PrintConfigDef()
     external_fill_pattern.enum_labels.push_back(__TRANS("Hilbert Curve"));
     external_fill_pattern.enum_labels.push_back(__TRANS("Archimedean Chords"));
     external_fill_pattern.enum_labels.push_back(__TRANS("Octagram Spiral"));
-    
+
     ConfigOptionDef* def;
 
     def = this->add("adaptive_slicing", coBool);
@@ -67,7 +67,7 @@ PrintConfigDef::PrintConfigDef()
     def->tooltip = __TRANS("Unselecting this will suppress automatic generation of bed heating gcode.");
     def->cli = "has_heatbed!";
     def->default_value = new ConfigOptionBool(true);
-    
+
     def = this->add("bed_temperature", coInt);
     def->label = __TRANS("Other layers");
     def->tooltip = __TRANS("Bed temperature for layers after the first one.");
@@ -185,7 +185,7 @@ PrintConfigDef::PrintConfigDef()
     def->cli = "brim-width=f";
     def->min = 0;
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("compatible_printers", coStrings);
     def->label = __TRANS("Compatible printers");
     def->default_value = new ConfigOptionStrings();
@@ -267,7 +267,7 @@ PrintConfigDef::PrintConfigDef()
     def->aliases.push_back("solid_fill_pattern");
     def->shortcut.push_back("top_infill_pattern");
     def->shortcut.push_back("bottom_infill_pattern");
-    
+
     def = this->add("external_perimeter_extrusion_width", coFloatOrPercent);
     def->label = __TRANS("↳ external");
     def->full_label = __TRANS("External perimeters extrusion width");
@@ -364,7 +364,7 @@ PrintConfigDef::PrintConfigDef()
         opt->values.push_back(1);
         def->default_value = opt;
     }
-    
+
     def = this->add("extrusion_width", coFloatOrPercent);
     def->label = __TRANS("Default extrusion width");
     def->gui_type = "f_enum_open";
@@ -470,10 +470,10 @@ PrintConfigDef::PrintConfigDef()
         opt->values.push_back(0);
         def->default_value = opt;
     }
-    
+
     def = this->add("filament_settings_id", coString);
     def->default_value = new ConfigOptionString("");
-    
+
     def = this->add("fill_angle", coFloat);
     def->label = __TRANS("Fill angle");
     def->category = __TRANS("Infill");
@@ -626,7 +626,7 @@ PrintConfigDef::PrintConfigDef()
         opt->values.push_back(200);
         def->default_value = opt;
     }
-    
+
     def = this->add("gap_fill_speed", coFloatOrPercent);
     def->label = __TRANS("↳ gaps");
     def->full_label = "Gap fill speed";
@@ -688,7 +688,7 @@ PrintConfigDef::PrintConfigDef()
     def->enum_labels.push_back("Octoprint");
     def->enum_labels.push_back("Duet");
     def->default_value = new ConfigOptionEnum<HostType>(htOctoprint);
-    
+
     def = this->add("infill_acceleration", coFloat);
     def->label = __TRANS("Infill");
     def->category = __TRANS("Speed > Acceleration");
@@ -967,7 +967,7 @@ PrintConfigDef::PrintConfigDef()
     def->tooltip = __TRANS("Experimental option to adjust flow for overhangs (bridge flow will be used), to apply bridge speed to them and enable fan.");
     def->cli = "overhangs|detect-bridging-perimeters!";
     def->default_value = new ConfigOptionBool(true);
-    
+
     def = this->add("shortcuts", coStrings);
     def->label = __TRANS("Shortcuts");
     def->aliases.push_back("overridable");
@@ -1050,7 +1050,7 @@ PrintConfigDef::PrintConfigDef()
 
     def = this->add("print_settings_id", coString);
     def->default_value = new ConfigOptionString("");
-    
+
     def = this->add("printer_settings_id", coString);
     def->default_value = new ConfigOptionString("");
 
@@ -1107,7 +1107,7 @@ PrintConfigDef::PrintConfigDef()
         opt->values.push_back(2);
         def->default_value = opt;
     }
-    
+
     def = this->add("retract_layer_change", coBools);
     def->label = __TRANS("Retract on layer change");
     def->category = __TRANS("Retraction");
@@ -1261,7 +1261,7 @@ PrintConfigDef::PrintConfigDef()
     def->tooltip = __TRANS("Distance between skirt and object(s). Set this to zero to attach the skirt to the object(s) and get a brim for better adhesion.");
     def->sidetext = "mm";
     def->cli = "skirt-distance=f";
-    def->min = 0;
+    // def->min = 0; Remove minimum, allowing skirt to attach to brim
     def->default_value = new ConfigOptionFloat(6);
 
     def = this->add("skirt_height", coInt);
@@ -1280,7 +1280,7 @@ PrintConfigDef::PrintConfigDef()
     def->cli = "skirts=i";
     def->min = 0;
     def->default_value = new ConfigOptionInt(1);
-    
+
     def = this->add("slowdown_below_layer_time", coInt);
     def->label = __TRANS("Slow down if layer print time is below");
     def->tooltip = __TRANS("If layer print time is estimated below this number of seconds, print moves speed will be scaled down to extend duration to this value.");
@@ -1617,7 +1617,7 @@ PrintConfigDef::PrintConfigDef()
         opt->values.push_back(200);
         def->default_value = opt;
     }
-    
+
     def = this->add("thin_walls", coBool);
     def->label = __TRANS("Detect thin walls");
     def->category = __TRANS("Layers and Perimeters");
@@ -1635,7 +1635,7 @@ PrintConfigDef::PrintConfigDef()
         unsigned int threads = boost::thread::hardware_concurrency();
         def->default_value = new ConfigOptionInt(threads > 0 ? threads : 2);
     }
-    
+
     def = this->add("toolchange_gcode", coString);
     def->label = __TRANS("Tool change G-code");
     def->tooltip = __TRANS("This custom code is inserted right before every extruder change. Note that you can use placeholder variables for all Slic3r settings as well as [previous_extruder], [next_extruder], [previous_retraction] and [next_retraction].");
@@ -1796,7 +1796,7 @@ DynamicPrintConfig::normalize() {
                 this->option("support_material_interface_extruder", true)->setInt(extruder);
         }
     }
-    
+
     /*
     if (this->has("external_fill_pattern")) {
         InfillPattern p = this->opt<ConfigOptionEnum<InfillPattern> >("external_fill_pattern");
@@ -1807,10 +1807,10 @@ DynamicPrintConfig::normalize() {
             this->opt<ConfigOptionEnum<InfillPattern> >("top_infill_pattern", true)->value = p;
     }
     */
-    
+
     if (!this->has("solid_infill_extruder") && this->has("infill_extruder"))
         this->option("solid_infill_extruder", true)->setInt(this->option("infill_extruder")->getInt());
-    
+
     if (this->has("spiral_vase") && this->opt<ConfigOptionBool>("spiral_vase", true)->value) {
         {
             // this should be actually done only on the spiral layers instead of all
@@ -1830,7 +1830,7 @@ PrintConfigBase::min_object_distance() const
 {
     double extruder_clearance_radius = this->option("extruder_clearance_radius")->getFloat();
     double duplicate_distance = this->option("duplicate_distance")->getFloat();
-    
+
     // min object distance is max(duplicate_distance, clearance_radius)
     return (this->option("complete_objects")->getBool() && extruder_clearance_radius > duplicate_distance)
         ? extruder_clearance_radius
@@ -1855,7 +1855,7 @@ PrintConfigBase::_handle_legacy(t_config_option_key &opt_key, std::string &value
         if (opt_key == "bottom_layer_speed") opt_key = "first_layer_speed";
         try {
             float v = boost::lexical_cast<float>(value);
-            if (v != 0) 
+            if (v != 0)
                 value = boost::lexical_cast<std::string>(v*100) + "%";
         } catch (boost::bad_lexical_cast &) {
             value = "0";
@@ -1892,23 +1892,23 @@ PrintConfigBase::_handle_legacy(t_config_option_key &opt_key, std::string &value
         // transform it into the default value
         value = "60%";
     }
-    
+
     // cemetery of old config settings
-    if (opt_key == "duplicate_x" || opt_key == "duplicate_y" || opt_key == "multiply_x" 
-        || opt_key == "multiply_y" || opt_key == "support_material_tool" 
-        || opt_key == "acceleration" || opt_key == "adjust_overhang_flow" 
-        || opt_key == "standby_temperature" || opt_key == "scale" || opt_key == "rotate" 
-        || opt_key == "duplicate" || opt_key == "duplicate_grid" || opt_key == "rotate" 
-        || opt_key == "scale"  || opt_key == "duplicate_grid" 
-        || opt_key == "start_perimeters_at_concave_points" 
-        || opt_key == "start_perimeters_at_non_overhang" || opt_key == "randomize_start" 
-        || opt_key == "seal_position" || opt_key == "bed_size" || opt_key == "octoprint_host" 
+    if (opt_key == "duplicate_x" || opt_key == "duplicate_y" || opt_key == "multiply_x"
+        || opt_key == "multiply_y" || opt_key == "support_material_tool"
+        || opt_key == "acceleration" || opt_key == "adjust_overhang_flow"
+        || opt_key == "standby_temperature" || opt_key == "scale" || opt_key == "rotate"
+        || opt_key == "duplicate" || opt_key == "duplicate_grid" || opt_key == "rotate"
+        || opt_key == "scale"  || opt_key == "duplicate_grid"
+        || opt_key == "start_perimeters_at_concave_points"
+        || opt_key == "start_perimeters_at_non_overhang" || opt_key == "randomize_start"
+        || opt_key == "seal_position" || opt_key == "bed_size" || opt_key == "octoprint_host"
         || opt_key == "print_center" || opt_key == "g0" || opt_key == "threads")
     {
         opt_key = "";
         return;
     }
-    
+
     if (!this->def->has(opt_key)) {
         //printf("Unknown option %s\n", opt_key.c_str());
         opt_key = "";
@@ -1919,26 +1919,26 @@ PrintConfigBase::_handle_legacy(t_config_option_key &opt_key, std::string &value
 CLIActionsConfigDef::CLIActionsConfigDef()
 {
     ConfigOptionDef* def;
-    
+
     // Actions:
     def = this->add("export_obj", coBool);
     def->label = __TRANS("Export SVG");
     def->tooltip = __TRANS("Export the model(s) as OBJ.");
     def->cli = "export-obj";
     def->default_value = new ConfigOptionBool(false);
-    
+
     def = this->add("export_pov", coBool);
     def->label = __TRANS("Export POV");
     def->tooltip = __TRANS("Export the model as POV-Ray definition.");
     def->cli = "export-pov";
     def->default_value = new ConfigOptionBool(false);
-    
+
     def = this->add("export_svg", coBool);
     def->label = __TRANS("Export SVG");
     def->tooltip = __TRANS("Slice the model and export solid slices as SVG.");
     def->cli = "export-svg";
     def->default_value = new ConfigOptionBool(false);
-    
+
     def = this->add("export_sla_svg", coBool);
     def->label = __TRANS("Export SVG for SLA");
     def->tooltip = __TRANS("Slice the model and export SLA printing layers as SVG.");
@@ -1980,13 +1980,13 @@ CLIActionsConfigDef::CLIActionsConfigDef()
     def->tooltip = __TRANS("Show the full list of print/G-code configuration options.");
     def->cli = "help-options";
     def->default_value = new ConfigOptionBool(false);
-    
+
     def = this->add("info", coBool);
     def->label = __TRANS("Output Model Info");
     def->tooltip = __TRANS("Write information about the model to the console.");
     def->cli = "info";
     def->default_value = new ConfigOptionBool(false);
-    
+
     def = this->add("save", coString);
     def->label = __TRANS("Save config file");
     def->tooltip = __TRANS("Save configuration to the specified file.");
@@ -1997,38 +1997,38 @@ CLIActionsConfigDef::CLIActionsConfigDef()
 CLITransformConfigDef::CLITransformConfigDef()
 {
     ConfigOptionDef* def;
-    
+
     // Transform options:
     def = this->add("align_xy", coPoint);
     def->label = __TRANS("Align XY");
     def->tooltip = __TRANS("Align the model to the given point.");
     def->cli = "align-xy";
     def->default_value = new ConfigOptionPoint(Pointf(100,100));
-    
+
     def = this->add("cut", coFloat);
     def->label = __TRANS("Cut");
     def->tooltip = __TRANS("Cut model at the given Z.");
     def->cli = "cut";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("cut_grid", coFloat);
     def->label = __TRANS("Cut");
     def->tooltip = __TRANS("Cut model in the XY plane into tiles of the specified max size.");
     def->cli = "cut-grid";
     def->default_value = new ConfigOptionPoint();
-    
+
     def = this->add("cut_x", coFloat);
     def->label = __TRANS("Cut");
     def->tooltip = __TRANS("Cut model at the given X.");
     def->cli = "cut-x";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("cut_y", coFloat);
     def->label = __TRANS("Cut");
     def->tooltip = __TRANS("Cut model at the given Y.");
     def->cli = "cut-y";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("center", coPoint);
     def->label = __TRANS("Center");
     def->tooltip = __TRANS("Center the print around the given center.");
@@ -2039,13 +2039,13 @@ CLITransformConfigDef::CLITransformConfigDef()
     def->label = __TRANS("Don't arrange");
     def->tooltip = __TRANS("Do not rearrange the given models before merging and keep their original XY coordinates.");
     def->cli = "dont-arrange";
-    
+
     def = this->add("duplicate", coInt);
     def->label = __TRANS("Duplicate");
     def->tooltip =__TRANS("Multiply copies by this factor.");
     def->cli = "duplicate=i";
     def->min = 1;
-    
+
     def = this->add("duplicate_grid", coPoint);
     def->label = __TRANS("Duplicate by grid");
     def->tooltip = __TRANS("Multiply copies by creating a grid.");
@@ -2060,25 +2060,25 @@ CLITransformConfigDef::CLITransformConfigDef()
     def->label = __TRANS("Repair");
     def->tooltip = __TRANS("Try to repair any non-manifold meshes (this option is implicitly added whenever we need to slice the model to perform the requested action).");
     def->cli = "repair";
-    
+
     def = this->add("rotate", coFloat);
     def->label = __TRANS("Rotate");
     def->tooltip = __TRANS("Rotation angle around the Z axis in degrees.");
     def->cli = "rotate";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("rotate_x", coFloat);
     def->label = __TRANS("Rotate around X");
     def->tooltip = __TRANS("Rotation angle around the X axis in degrees.");
     def->cli = "rotate-x";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("rotate_y", coFloat);
     def->label = __TRANS("Rotate around Y");
     def->tooltip = __TRANS("Rotation angle around the Y axis in degrees.");
     def->cli = "rotate-y";
     def->default_value = new ConfigOptionFloat(0);
-    
+
     def = this->add("scale", coFloatOrPercent);
     def->label = __TRANS("Scale");
     def->tooltip = __TRANS("Scaling factor or percentage.");
@@ -2089,7 +2089,7 @@ CLITransformConfigDef::CLITransformConfigDef()
     def->label = __TRANS("Split");
     def->tooltip = __TRANS("Detect unconnected parts in the given model(s) and split them into separate objects.");
     def->cli = "split";
-    
+
     def = this->add("scale_to_fit", coPoint3);
     def->label = __TRANS("Scale to Fit");
     def->tooltip = __TRANS("Scale to fit the given volume.");
@@ -2101,28 +2101,28 @@ CLITransformConfigDef::CLITransformConfigDef()
 CLIMiscConfigDef::CLIMiscConfigDef()
 {
     ConfigOptionDef* def;
-    
+
     def = this->add("ignore_nonexistent_config", coBool);
     def->label = __TRANS("Ignore non-existent config files");
     def->tooltip = __TRANS("Do not fail if a file supplied to --load does not exist.");
     def->cli = "ignore-nonexistent-config";
-    
+
     def = this->add("load", coStrings);
     def->label = __TRANS("Load config file");
     def->tooltip = __TRANS("Load configuration from the specified file. It can be used more than once to load options from multiple files.");
     def->cli = "load";
-    
+
     def = this->add("output", coString);
     def->label = __TRANS("Output File");
     def->tooltip = __TRANS("The file where the output will be written (if not specified, it will be based on the input file).");
     def->cli = "output|o";
-    
+
     #ifdef USE_WX
     def = this->add("autosave", coString);
     def->label = __TRANS("Autosave");
     def->tooltip = __TRANS("Automatically export current configuration to the specified file.");
     def->cli = "autosave";
-    
+
     def = this->add("datadir", coString);
     def->label = __TRANS("Data directory");
     def->tooltip = __TRANS("Load and store settings at the given directory. This is useful for maintaining different profiles or including configurations from a network storage.");
